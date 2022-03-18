@@ -110,6 +110,9 @@ void * popBack(List * list) {
 }
 
 void * popCurrent(List * list) {
+    //if(list->current == NULL) return NULL;
+    //if((list->current->next == NULL) && (list->current.)); // eliminar ultimo elemento
+
     return NULL;
 }
 
