@@ -31,6 +31,7 @@ Node * createNode(void * data) {
 List * createList() {
 
     List* nl = (List *) malloc(sizeof(List));
+
     nl->head = NULL;
     nl->tail = NULL;
     nl->current = NULL;
@@ -84,18 +85,38 @@ void pushBack(List * list, void * data) {
 }
 
 void pushCurrent(List * list, void * data) {
+
+    // creamos nuevo nodo con datos respectivos
     Node* newNode = createNode(data);
-    if(list->current->next == NULL)
+    
+    if(list->head == NULL && list->tail == NULL)
     {
-        if(list->current == list->tail)
+        list->head = newNode;
+        list->tail = newNode;
+        list->current = newNode;
+        return;
+    }
+    if(list->current != NULL)
+    {
+        if(list->current->next == NULL)
         {
+            list->current->next = newNode;
             list->tail = newNode;
-        }     
-    } else {
-        list->current->next->prev = newNode;
-        newNode->next = list->current->next;
-        newNode->prev = list->current;
-        list->current->next = newNode;
+            newNode->next = NULL;
+            newNode->prev = list->current;
+            list->current = newNode;
+            return;
+            // tail
+        }   
+        if(list->current->next != NULL)
+        {
+            newNode->next = list->current->next;
+            newNode->prev = list->current;
+            list->current->next->prev = newNode;
+            list->current->next = newNode;
+            list->current = newNode;
+            return;
+        }
     }
 }
 
@@ -111,33 +132,31 @@ void * popBack(List * list) {
 
 void * popCurrent(List * list) {
 
-    // Si la lista enlazada está vacía
-    if(list->head == NULL || list->current == NULL)
-    {
-        return NULL;
-    }
-
-    // Si el nodo es head
+    // si la lista esta vacia
+    if(list->head == NULL || list->current == NULL) return NULL;
+    
+    // si el nodo es head
     if(list->head == list->current)
     {
         list->head = list->current->next;
         list->current->next->prev = NULL;
     }
 
-    // Si el nodo es tail
+    // si el nodo es tail
     if(list->current == list->tail)
     {
         list->tail = list->current->prev;
         list->current->prev->next = NULL;
     }
 
-    // Si el nodo no es head ni tail
+    // si el nodo no es head ni tail
     if(list->current->next != NULL && list->current->prev != NULL)
     {
         list->current->next->prev = list->current->prev;
         list->current->prev->next = list->current->next;
     }
 
+    // creamos una copia del puntero data antes de liberar memoria
     void * aux = list->current->data;
 
     free(list->current);
