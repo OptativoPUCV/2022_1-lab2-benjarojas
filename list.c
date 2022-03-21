@@ -89,6 +89,7 @@ void pushCurrent(List * list, void * data) {
     // creamos nuevo nodo con datos respectivos
     Node* newNode = createNode(data);
     
+    // si la lista esta vacia
     if(list->head == NULL && list->tail == NULL)
     {
         list->head = newNode;
@@ -96,25 +97,35 @@ void pushCurrent(List * list, void * data) {
         list->current = newNode;
         return;
     }
+
+    // si la lista no esta vacia
     if(list->current != NULL)
     {
+        // si insertamos un nodo despues del nodo tail
         if(list->current->next == NULL)
         {
             list->current->next = newNode;
             list->tail = newNode;
             newNode->next = NULL;
             newNode->prev = list->current;
+
+            // cambiamos (*list).current al nuevo nodo
             list->current = newNode;
+            
             return;
-            // tail
         }   
+
+        // si insertamos un nodo antes del nodo tail
         if(list->current->next != NULL)
         {
             newNode->next = list->current->next;
             newNode->prev = list->current;
             list->current->next->prev = newNode;
             list->current->next = newNode;
+
+            // cambiamos (*list).current al nuevo nodo
             list->current = newNode;
+
             return;
         }
     }
