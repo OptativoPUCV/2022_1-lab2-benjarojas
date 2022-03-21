@@ -110,32 +110,34 @@ void * popBack(List * list) {
 }
 
 void * popCurrent(List * list) {
+
+    // Si la lista enlazada está vacía
     if(list->head == NULL || list->current == NULL)
     {
         return NULL;
     }
 
+    // Si el nodo es head
     if(list->head == list->current)
     {
         list->head = list->current->next;
+        list->current->next->prev = NULL;
     }
 
-    if(list->current->next != NULL)
-    {
-        list->current->next->prev = list->current->prev;
-    }
-
-    if(list->current->prev != NULL)
-    {
-        list->current->prev->next = list->current->next;
-    }
-
+    // Si el nodo es tail
     if(list->current == list->tail)
     {
         list->tail = list->current->prev;
         list->current->prev->next = NULL;
     }
-    
+
+    // Si el nodo no es head ni tail
+    if(list->current->next != NULL && list->current->prev != NULL)
+    {
+        list->current->next->prev = list->current->prev;
+        list->current->prev->next = list->current->next;
+    }
+
     void * aux = list->current->data;
 
     free(list->current);
