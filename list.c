@@ -136,10 +136,11 @@ void * popCurrent(List * list) {
         list->current->prev->next = NULL;
     }
     
-    void * auxp = list->current->data;
+    void * aux = list->current->data;
+
     free(list->current);
 
-    return auxp;
+    return aux;
 }
 
 void cleanList(List * list) {
