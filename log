@@ -107,3 +107,17 @@ Fri Mar 18 18:36:27 HSP 2022:
  tests:  10|2
 total_score: 45/70
 90b57cd
+Sun Mar 20 22:43:24 HSP 2022: 
+ list.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
+In file included from test.c:5:0:
+list.c: In function 'popCurrent':
+list.c:134:5: error: 'return' with no value, in function returning non-void [-Werror]
+     return;
+     ^~~~~~
+list.c:112:8: note: declared here
+ void * popCurrent(List * list) {
+        ^~~~~~~~~~
+cc1.exe: all warnings being treated as errors
+Compilation failed
+5341fb3
