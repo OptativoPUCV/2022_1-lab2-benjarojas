@@ -32,7 +32,7 @@ List * createList() {
 
     List* nl = (List *) malloc(sizeof(List));
 
-    nl->head = NULL;
+    (*nl).head = NULL;
     nl->tail = NULL;
     nl->current = NULL;
 
@@ -111,7 +111,7 @@ void pushCurrent(List * list, void * data) {
 
             // cambiamos (*list).current al nuevo nodo
             list->current = newNode;
-            
+
             return;
         }   
 
