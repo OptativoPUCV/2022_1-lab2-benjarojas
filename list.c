@@ -32,7 +32,7 @@ List * createList() {
 
     List* nl = (List *) malloc(sizeof(List));
 
-    (*nl).head = NULL;
+    nl->head = NULL;
     nl->tail = NULL;
     nl->current = NULL;
 
@@ -101,7 +101,7 @@ void pushCurrent(List * list, void * data) {
     // si la lista no esta vacia
     if(list->current != NULL)
     {
-        // si insertamos un nodo despues del nodo tail
+        // si insertamos un nodo despues de tail
         if(list->current->next == NULL)
         {
             list->current->next = newNode;
@@ -109,13 +109,13 @@ void pushCurrent(List * list, void * data) {
             newNode->next = NULL;
             newNode->prev = list->current;
 
-            // cambiamos (*list).current al nuevo nodo
+            // movemos (*list).current al nuevo nodo
             list->current = newNode;
 
             return;
         }   
 
-        // si insertamos un nodo antes del nodo tail
+        // si insertamos un nodo antes de tail
         if(list->current->next != NULL)
         {
             newNode->next = list->current->next;
@@ -123,7 +123,7 @@ void pushCurrent(List * list, void * data) {
             list->current->next->prev = newNode;
             list->current->next = newNode;
 
-            // cambiamos (*list).current al nuevo nodo
+            // movemos (*list).current al nuevo nodo
             list->current = newNode;
 
             return;
